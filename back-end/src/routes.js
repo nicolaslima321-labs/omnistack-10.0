@@ -1,5 +1,6 @@
 const { Router } = require('express')
 const DevController = require('./Controllers/DevController')
+const SearchController = require('./Controllers/SearchController')
 
 const routes = Router()
 
@@ -10,7 +11,8 @@ const routes = Router()
 // Body: request.body (Dados para criação) 
 
 routes.get('/', DevController.index)
-
 routes.post('/devs', DevController.store)
+
+routes.get('/search', SearchController.index)
 
 module.exports = routes
