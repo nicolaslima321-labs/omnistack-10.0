@@ -11,7 +11,10 @@ const routes = Router()
 // Body: request.body (Dados para criação) 
 
 routes.get('/', DevController.index)
-routes.post('/devs', DevController.store)
+
+routes.post('/store', DevController.store)
+
+routes.put('/devs', DevController.update)
 
 routes.get('/search', SearchController.index)
 
