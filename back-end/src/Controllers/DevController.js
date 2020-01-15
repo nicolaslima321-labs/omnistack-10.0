@@ -47,7 +47,7 @@ module.exports = {
     // Short syntax, same propertie and value name can be simplified
     dev = await Dev.create({
       github_username: github_username,
-      name,
+      name: name || github_username,
       avatar_url,
       bio,
       techs: techsArray,

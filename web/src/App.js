@@ -1,40 +1,123 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+import api from './Services/api'
 
 import './global.css';
 import './App.css';
 import './Sidebar.css';
 import './Main.css';
+import Axios from 'axios';
+
+import DevItem from './Components/DevItem/index.js'
 
 // Componentes: Bloco isolado de HTML, CSS e JS, o qual não interfere no restante da aplicação
 // Propriedade: Informações que um componente PAI passa para um componente FILHO (Ex: Atributo de uma tag JSX)
 // Estado: Informações mantidas pelo componente (Lembrar: imutabilidade)
 
-
 function App() {
+  const [devs, setDevs] = useState([])
+
+  const [github_username, setGithubUsername] = useState('')
+  const [techs, setTechs] = useState('')
+
+  const [latitude, setLatitude] = useState('')
+  const [longitude, setLongitude] = useState('')
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        console.log(position)
+        const { latitude, longitude } = position.coords
+        setLatitude(latitude)
+        setLongitude(longitude)
+      },
+      function (error) {
+        console.log(error)
+      },
+      {
+        timout: 30000
+      }
+    )
+  }, [])
+
+  useEffect(() => {
+    async function loadDevs() {
+      const response = await api.get('/devs')
+
+      setDevs(response.data)
+    }
+
+    loadDevs()
+  }, [])
+
+  async function handleAddDev(e) {
+    e.preventDefault()
+
+    const response = await api.post('/devs', {
+      github_username,
+      techs,
+      latitude,
+      longitude
+    })
+
+    setGithubUsername('')
+    setTechs('')
+
+    setDevs([...devs, response.data])
+
+    console.log(response.data)
+  }
+
   return (
     <div id="app">
       <aside>
         <strong>Cadastrar</strong>
-        <form>
+        <form onSubmit={handleAddDev}>
           <div className="input-block">
             <label htmlFor="github_username">Usuário do Github</label>
-            <input name="github_username" name="github_username" required/>
+            <input
+              name="github_username"
+              id="github_username"
+              required
+              value={github_username}
+              onChange={e => setGithubUsername(e.target.value)}
+            />
           </div>
 
           <div className="input-block">
             <label htmlFor="techs">Tecnologias</label>
-            <input name="techs" name="techs" required/>
+            <input
+              name="techs"
+              id="techs"
+              required
+              value={techs}
+              onChange={e => setTechs(e.target.value)}
+            />
           </div>
 
           <div className="input-group">
             <div className="input-block">
               <label htmlFor="latitude">Latitude</label>
-              <input name="latitude" name="latitude" required/>
+              <input
+                type="number"
+                name="latitude"
+                id="latitude"
+                required
+                value={latitude}
+                onChange={e => setLatitude(e.target.value)}
+              />
             </div>
 
             <div className="input-block">
               <label htmlFor="longitude">Longitude</label>
-              <input name="longitude" name="longitude" required/>
+              <input 
+                type="number" 
+                name="longitude" 
+                id="longitude" 
+                required 
+                value={longitude} 
+                onChange={e => setLongitude(e.target.value)}
+              />
             </div>
           </div>
 
@@ -43,53 +126,9 @@ function App() {
       </aside>
       <main>
         <ul>
-          <li className="dev-item">
-            <header>
-              <img src="https://avatars3.githubusercontent.com/u/23743072?s=460&v=4" alt="Avatar" />
-              <div className="user-info">
-                <strong>Nicolas Lima</strong>
-                <span>PHP, Laravel, Node.js</span>
-              </div>
-            </header>
-            <p>Web Developer, student of computer engineering in Universidade do Vale do Paraíba</p>
-            <a href="https://github.com/nicolaslima321">Acessar perfil do Github</a>
-          </li>
-
-          <li className="dev-item">
-            <header>
-              <img src="https://avatars3.githubusercontent.com/u/23743072?s=460&v=4" alt="Avatar" />
-              <div className="user-info">
-                <strong>Nicolas Lima</strong>
-                <span>PHP, Laravel, Node.js</span>
-              </div>
-            </header>
-            <p>Web Developer, student of computer engineering in Universidade do Vale do Paraíba</p>
-            <a href="https://github.com/nicolaslima321">Acessar perfil do Github</a>
-          </li>
-
-          <li className="dev-item">
-            <header>
-              <img src="https://avatars3.githubusercontent.com/u/23743072?s=460&v=4" alt="Avatar" />
-              <div className="user-info">
-                <strong>Nicolas Lima</strong>
-                <span>PHP, Laravel, Node.js</span>
-              </div>
-            </header>
-            <p>Web Developer, student of computer engineering in Universidade do Vale do Paraíba</p>
-            <a href="https://github.com/nicolaslima321">Acessar perfil do Github</a>
-          </li>
-
-          <li className="dev-item">
-            <header>
-              <img src="https://avatars3.githubusercontent.com/u/23743072?s=460&v=4" alt="Avatar" />
-              <div className="user-info">
-                <strong>Nicolas Lima</strong>
-                <span>PHP, Laravel, Node.js</span>
-              </div>
-            </header>
-            <p>Web Developer, student of computer engineering in Universidade do Vale do Paraíba</p>
-            <a href="https://github.com/nicolaslima321">Acessar perfil do Github</a>
-          </li>
+          {devs.map(dev => (
+            <DevItem key={dev.id} dev={dev}></DevItem>
+          ))}
         </ul>
       </main>
     </div>

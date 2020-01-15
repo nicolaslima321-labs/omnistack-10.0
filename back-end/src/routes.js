@@ -10,9 +10,9 @@ const routes = Router()
 // Route Params: request.params (Identificar um recurso na alteração ou remoção) ex: www.sample.com/users/1
 // Body: request.body (Dados para criação) 
 
-routes.get('/', DevController.index)
+routes.get('/devs', DevController.index)
 
-routes.post('/store', DevController.store)
+routes.post('/devs', DevController.store)
 
 routes.put('/devs', DevController.update)
 
