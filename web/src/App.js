@@ -3,6 +3,7 @@ import React from 'react';
 import './global.css';
 import './App.css';
 import './Sidebar.css';
+import './Main.css';
 
 // Componentes: Bloco isolado de HTML, CSS e JS, o qual não interfere no restante da aplicação
 // Propriedade: Informações que um componente PAI passa para um componente FILHO (Ex: Atributo de uma tag JSX)
@@ -41,7 +42,55 @@ function App() {
         </form>
       </aside>
       <main>
+        <ul>
+          <li className="dev-item">
+            <header>
+              <img src="https://avatars3.githubusercontent.com/u/23743072?s=460&v=4" alt="Avatar" />
+              <div className="user-info">
+                <strong>Nicolas Lima</strong>
+                <span>PHP, Laravel, Node.js</span>
+              </div>
+            </header>
+            <p>Web Developer, student of computer engineering in Universidade do Vale do Paraíba</p>
+            <a href="https://github.com/nicolaslima321">Acessar perfil do Github</a>
+          </li>
 
+          <li className="dev-item">
+            <header>
+              <img src="https://avatars3.githubusercontent.com/u/23743072?s=460&v=4" alt="Avatar" />
+              <div className="user-info">
+                <strong>Nicolas Lima</strong>
+                <span>PHP, Laravel, Node.js</span>
+              </div>
+            </header>
+            <p>Web Developer, student of computer engineering in Universidade do Vale do Paraíba</p>
+            <a href="https://github.com/nicolaslima321">Acessar perfil do Github</a>
+          </li>
+
+          <li className="dev-item">
+            <header>
+              <img src="https://avatars3.githubusercontent.com/u/23743072?s=460&v=4" alt="Avatar" />
+              <div className="user-info">
+                <strong>Nicolas Lima</strong>
+                <span>PHP, Laravel, Node.js</span>
+              </div>
+            </header>
+            <p>Web Developer, student of computer engineering in Universidade do Vale do Paraíba</p>
+            <a href="https://github.com/nicolaslima321">Acessar perfil do Github</a>
+          </li>
+
+          <li className="dev-item">
+            <header>
+              <img src="https://avatars3.githubusercontent.com/u/23743072?s=460&v=4" alt="Avatar" />
+              <div className="user-info">
+                <strong>Nicolas Lima</strong>
+                <span>PHP, Laravel, Node.js</span>
+              </div>
+            </header>
+            <p>Web Developer, student of computer engineering in Universidade do Vale do Paraíba</p>
+            <a href="https://github.com/nicolaslima321">Acessar perfil do Github</a>
+          </li>
+        </ul>
       </main>
     </div>
   );
