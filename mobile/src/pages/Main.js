@@ -3,7 +3,7 @@ import { Text, Image, View, StyleSheet } from 'react-native'
 import MapView, { Marker, Callout } from 'react-native-maps'
 import { requestPermissionsAsync, getCurrentPositionAsync } from 'expo-location'
 
-export default function Main() {
+export default function Main({ navigation }) {
 	const [currentRegion, setCurrentRegion] = useState(null)
 
 	useEffect(() => {
